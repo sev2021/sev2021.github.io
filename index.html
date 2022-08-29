@@ -16,32 +16,15 @@
     <script type="text/babel">
 
         var myHello = "ReAcT";
-
-        function My_List(){ 
-
-                var nameArray = ["Aaaa", "Bbb", "Cccc"];
-                var nameArrayJSX = nameArray.map(toList => <li>{ toList }</li>);
-                var showList = true;
-                return(
-                    <div>
-                    { showList? <ul> { nameArrayJSX } </ul>: "No names..." }
-                    </div>
-                )
-        }
-
-        class My_Compo extends React.Component {  //  component // MyCompo
-            render(){ return( 
-                <div id="container">
-
-                    <h1>Hello { myHello }</h1>
-                    <My_List /> 
-                        
-                </div>
-            )}
+        class HeadCompo extends React.Component{
+            render(){
+                //return <h2>Render - return</h2>;
+                return React.createElement("div", null, "div - content");
+            }
         }
 
         ReactDOM.render( 
-            < My_Compo />,
+            < HeadCompo />,
             document.querySelector('#app')
         )
     </script>
