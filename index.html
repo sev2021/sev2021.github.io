@@ -35,6 +35,14 @@
             }
         }
 
+        class HeadCompo extends React.Component{
+            render(){
+                return(
+                    <h2>Render/return iss: { this.state.title }</h2>
+                )
+            }
+        }
+
         class MainCompo extends React.Component{
             state = {
                 title: "Render - return"
@@ -47,7 +55,7 @@
                 
                 return (
                     <div>
-                    <h2>Render/return is: { this.state.title }</h2>
+                    < HeadCompo />
                     < NamesCompo />
                     < NamesCompoF />
                     <button onClick={ chTitle }>Change Name</button>
