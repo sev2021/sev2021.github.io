@@ -43,11 +43,10 @@
             }
             render(){
                 
-                const chTitle = () => {
-                    alert(77);
+                const chTitle = () => {                     // USE ONLY ARROW FUNCTION TO CHANGE  this.setState !!!
                     this.setState({ title: 'VUEEE' })
-                    alert(99);
                 }
+                
                 return (
                     <div>
                     <h2>Render/return title: { this.state.title }</h2>
