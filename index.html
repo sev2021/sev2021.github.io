@@ -12,38 +12,58 @@
 </head>
 <body>
     <div id="app"></div>
-
     <script type="text/babel">
 
-        var myHello = "ReAcT";
+        var title = `Lorem ipsum dolor sit amet consectetur`;
 
-        function My_List(){ 
-
-                var nameArray = ["Aaaa", "Bbb", "Cccc"];
-                var nameArrayJSX = nameArray.map(toList => <li>{ toList }</li>);
-                var showList = true;
-                return(
-                    <div>
-                    { showList? <ul> { nameArrayJSX } </ul>: "No names..." }
-                    </div>
-                )
+        function NamesCompoF(){
+            const nameArray = ["Gaaa", "BFbbb", "CccEc"];
+            const nameArrayR = <ul> {nameArray.map(i => <li>{ i }</li> ) } </ul>;
+            const showNames = true;
+            return(
+                <div> { showNames? nameArrayR: <p>NO NAMES</p> } </div>
+            )
         }
 
-        class My_Compo extends React.Component {  //  component // MyCompo
-            render(){ return( 
-                <div id="container">
+        class NamesCompo extends React.Component{
+            render(){
+                const nameArray = ["Aaaa", "Bbbb", "Cccc"];
+                const nameArrayR = <ul> {nameArray.map(i => <li>{ i }</li> ) } </ul>;
+                const showNames = true;
 
-                    <h1>Hello { myHello }</h1>
-                    <My_List /> 
-                        
-                </div>
-            )}
+                return(
+                    <div> { showNames? nameArrayR: <p>NO NAMES</p> } </div>
+                )
+            }
+        }
+
+        class MainCompo extends React.Component{
+            state = {
+                title: "Render - return"
+            }
+            render(){
+                
+                const chTitle = () => {
+                    alert(77);
+                    this.setState({ title: 'VUEEE' })
+                    alert(99);
+                }
+                return (
+                    <div>
+                    <h2>Render/return title: { this.state.title }</h2>
+                    < NamesCompo />
+                    < NamesCompoF />
+                    <button onClick={ chTitle }>Change Name</button>
+                    </div>
+                )
+            }
         }
 
         ReactDOM.render( 
-            < My_Compo />,
+            < MainCompo />,
             document.querySelector('#app')
         )
     </script>
 </body>
 </html>
+
