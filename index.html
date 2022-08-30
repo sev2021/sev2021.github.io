@@ -14,8 +14,6 @@
     <div id="app"></div>
     <script type="text/babel">
 
-        var title = `Lorem ipsum dolor sit amet consectetur`;
-
         function NamesCompoF(){
             const nameArray = ["Gaaa", "BFbbb", "CccEc"];
             const nameArrayR = <ul> {nameArray.map(i => <li>{ i }</li> ) } </ul>;
@@ -49,7 +47,7 @@
                 
                 return (
                     <div>
-                    <h2>Render/return title: { this.state.title }</h2>
+                    <h2>Render/return is: { this.state.title }</h2>
                     < NamesCompo />
                     < NamesCompoF />
                     <button onClick={ chTitle }>Change Name</button>
