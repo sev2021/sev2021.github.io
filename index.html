@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,27 +7,76 @@
     <title>Heroku alternative</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <!-- dont use in production -->
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="app"></div>
-
     <script type="text/babel">
+    
 
-        var myHello = "ReAcT";
-        class HeadCompo extends React.Component{
-            render(){
-                //return <h2>Render - return</h2>;
-                return React.createElement("div", null, "div - content");
-            }
+    const ModalDialog = ( {title="Need title", content=<b>BBB</b>} ) => {return(
+        <div>
+            <dialog open>
+                <h1> { title } </h1>
+                <p> { content } </p>
+            </dialog>
+        </div>
+    )}
+
+
+    class NamesCompo extends React.Component{
+        render(){
+            const nameArray = ["Aaaa", "Bbbb", "Cccc"];
+            const nameArrayR = <ul> {nameArray.map(i => <li key={ i } >{ i }</li> ) } </ul>;
+            const showNames = true;
+
+            return(
+                <div> { showNames? nameArrayR: <p>NO NAMES</p> } </div>
+            )
         }
+    }
 
-        ReactDOM.render( 
-            < HeadCompo />,
-            document.querySelector('#app')
-        )
+    class HeadCompo extends React.Component{
+        render(){
+            return(
+                <h2>My Source: { this.props.title }</h2>
+            )
+        }
+    }
+
+    const MyCompo = () => {
+        const [x,y] = React.useState(0)
+        return <button onClick={ ()=>y(x+1) } > This is {x } </button>
+    }
+
+    class MainCompo extends React.Component{
+        state = {
+            title: "Render - return",
+            buttonState: "Not Clicked"
+        }
+        render(){
+            const chTitle = () => { this.setState({ title: 'typeofweb', buttonState: "Not Clicked"}) }
+            const chButton = () => { this.setState({ buttonState: "Clicked!"}) }
+
+            return (
+                <div>
+                    < HeadCompo title={this.state.title} />
+                    
+                    < NamesCompo />
+                    < MyCompo /><br />
+                    <button onClick={ chTitle }>Change Head</button>
+                    <button onClick={ chButton }>{ this.state.buttonState }</button>
+                    < ModalDialog title="MODAL"/>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render( 
+        < MainCompo />,
+        document.querySelector('#app')
+    )
     </script>
 </body>
 </html>
