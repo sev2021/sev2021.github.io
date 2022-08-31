@@ -3,79 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heroku alternative</title>
+    <title>Typeofweb Contacts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
-    <div id="app"></div>
-    <script type="text/babel">
-    
-
-    const ModalDialog = ( {title="Need title", content=<b>BBB</b>} ) => {return(
-        <div>
-            <dialog open>
-                <h1> { title } </h1>
-                <p> { content } </p>
-            </dialog>
+<header className="ui fixed menu" class="container-fluid p-5 bg-primary text-white text-center">
+    <nav className="ui container" class="row">
+        <a href="#" className="header item" class="link-danger">
+        <img className="logo" style="width:10%" src="https://consumer.huawei.com/content/dam/huawei-cbg-site/weu/ie/support/pc-manager/contact-us.png" />
+        Contact List
+        </a>
+        <div className="header item">
+            <button className="ui button">Dodaj</button>
         </div>
-    )}
-
-
-    class NamesCompo extends React.Component{
-        render(){
-            const nameArray = ["Aaaa", "Bbbb", "Cccc"];
-            const nameArrayR = <ul> {nameArray.map(i => <li key={ i } >{ i }</li> ) } </ul>;
-            const showNames = true;
-
-            return(
-                <div> { showNames? nameArrayR: <p>NO NAMES</p> } </div>
-            )
-        }
-    }
-
-    class HeadCompo extends React.Component{
-        render(){
-            return(
-                <h2>My Source: { this.props.title }</h2>
-            )
-        }
-    }
-
-    const MyCompo = () => {
-        const [x,y] = React.useState(0)                                //  Hooooooooooocks
-        return <button onClick={ ()=>y(x+1) } > This was clicked { x } times</button>
-    }
-
-    class MainCompo extends React.Component{
-        state = {
-            title: "Render - return",
-            buttonState: "Not Clicked"
-        }
-        render(){
-            const chTitle = () => { this.setState({ title: 'typeofweb', buttonState: "Not Clicked"}) }
-            const chButton = () => { this.setState({ buttonState: "Clicked!"}) }
-
-            return (
-                <div>
-                    < HeadCompo title={this.state.title} />
-                    
-                    < NamesCompo />
-                    < MyCompo /><br />
-                    <button onClick={ chTitle }>Change Head</button>
-                    <button onClick={ chButton }>{ this.state.buttonState }</button>
-                    < ModalDialog title="MODAL"/>
+    </nav>
+</header>
+<main className="ui main text container" class="container-fluid p-5 bg-light text-center">
+    <ul className="ui relaxed divided list selection">
+        <li className="item">
+            <img src="https://randomuser.me/portraits/women/11.jpg" className="ui mini rounded image" class="rounded-circle mb-3"/>
+            <div className="content">
+                <h4 className="header">Lena</h4>
+                <div className="description">
+                    JavaScript Developer
                 </div>
-            )
-        }
-    }
-
-    ReactDOM.render( 
-        < MainCompo />,
-        document.querySelector('#app')
-    )
-    </script>
+            </div>
+        </li>
+        <li className="item">
+            <img src="https://randomuser.me/portraits/men/9.jpg" className="ui mini rounded image" class="rounded-circle mb-3"/>
+            <div className="content">
+                <h4 className="header">Brian</h4>
+                <div className="description">
+                    Human Resources
+                </div>
+            </div>
+        </li>
+        <li className="item">
+            <img src="https://randomuser.me/portraits/men/5.jpg" className="ui mini rounded image" class="rounded-circle mb-3"/>
+            <div className="content">
+                <h4 className="header">Rick</h4>
+                <div className="description">
+                    QA
+                </div>
+            </div>
+        </li>
+    </ul>
+</main>
 </body>
-</html>
