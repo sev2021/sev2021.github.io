@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +14,7 @@
     <div id="app"></div>
     <script type="text/babel">
     
+
     const ModalDialog = ( {title="Need title", content=<b>BBB</b>} ) => {return(
         <div>
             <dialog open>
@@ -22,19 +24,11 @@
         </div>
     )}
 
-    const NamesCompoF = () => {
-        const nameArray = ["Gaaa", "BFbbb", "CccEc"];
-        const nameArrayR = <ul> {nameArray.map(i => <li>{ i }</li> ) } </ul>;
-        const showNames = true;
-        return(
-            <div> { showNames? nameArrayR: <p>NO NAMES</p> } </div>
-        )
-    }
 
     class NamesCompo extends React.Component{
         render(){
             const nameArray = ["Aaaa", "Bbbb", "Cccc"];
-            const nameArrayR = <ul> {nameArray.map(i => <li>{ i }</li> ) } </ul>;
+            const nameArrayR = <ul> {nameArray.map(i => <li key={ i } >{ i }</li> ) } </ul>;
             const showNames = true;
 
             return(
@@ -51,29 +45,29 @@
         }
     }
 
+    const MyCompo = () => {
+        const [x,y] = React.useState(0)                                //  Hooooooooooocks
+        return <button onClick={ ()=>y(x+1) } > This was clicked { x } times</button>
+    }
+
     class MainCompo extends React.Component{
         state = {
             title: "Render - return",
             buttonState: "Not Clicked"
         }
         render(){
-            
-            const chTitle = () => {     // USE ONLY ARROW FUNCTION TO CHANGE  this.setState !!!
-                this.setState({ title: 'typeofweb', buttonState: "Not Clicked" })
-            }
-            
-            const chButton = () => {
-                this.setState({ buttonState: "Clicked!"})
-            }
+            const chTitle = () => { this.setState({ title: 'typeofweb', buttonState: "Not Clicked"}) }
+            const chButton = () => { this.setState({ buttonState: "Clicked!"}) }
 
             return (
                 <div>
                     < HeadCompo title={this.state.title} />
-                    < ModalDialog title="MODAL"/>
+                    
                     < NamesCompo />
-                    < NamesCompoF />
+                    < MyCompo /><br />
                     <button onClick={ chTitle }>Change Head</button>
                     <button onClick={ chButton }>{ this.state.buttonState }</button>
+                    < ModalDialog title="MODAL"/>
                 </div>
             )
         }
