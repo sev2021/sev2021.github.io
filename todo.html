@@ -17,54 +17,50 @@
     <div id="app"></div>
     <script type="text/babel">
     
-	class TodoElement extends React.Component{
-	render(){
-	return (
-    <div className="d-flex flex-row border m-3 px-3 justify-content-end border-primary rounded text-primary" 
-    style={ this.props.row.isDone?{opacity: 0.5}:{} }> 
-        <p className="my-3 mx-auto"> { this.props.row.title } </p>
-        <button className="btn btn-outline-primary m-2" disabled={ this.props.row.isDone }>
-            Done
-        </button>
-    </div>
-	)
-	}
+	const TodoItem = ( props ) => {
+	  const classNameNotDone = "card flex-row justify-content-end";
+	  const classNameDone = "card completed flex-row justify-content-end";
+
+	  return (
+	    <div className={ props.element.isDone? classNameDone : classNameNotDone } key={ props.element.id }>
+	      <p className="m-2 text-dark"> { props.element.title } </p>
+	      <button className="btn btn-info text-light" onClick={ () => props.passFromParent(props.element.id) }>
+		DONE
+	      </button>
+	    </div>
+	  )
 	}
 
 	class Todo extends React.Component{
-		state = {
-			elements: [
-				{ id: "223344", title:"Buy nuts and crisps!", isDone: false},
-				{ id: "223355", title:"Charge phone and watch", isDone: true},
-				{ id: "223366", title:"Cook pasta for lunch!", isDone: false}
-			],
-			openTimes: 1
-		}
+	  state = {
+	    elements: [  // arrays of tasks to be done
+	      { id: "223344", title:"Buy nuts and crisps!", isDone: false},
+	      { id: "223355", title:"Charge phone and watch", isDone: true},
+	      { id: "223366", title:"Cook pasta for lunch!", isDone: false}
+	    ]
+	  }
 
-		render(){
-			const elements = this.state.elements.map(
-				row => <div key={ row.id }> 
-					{ < TodoElement row = { row } /> } </div>
-			)
-			
+	  passToChild = (id) => {  // id comes back from child
+	    var elementsID = this.state.elements.findIndex(row => row.id == id);
+	    var newElements = this.state.elements;
+	    newElements[elementsID].isDone = !newElements[elementsID].isDone;
+	    this.setState({elements: newElements});  // change original state.elements
+	  }
 
-			return(
-				<div>
-				<div className="navbar navbar-dark bg-primary py-3 justify-content-around ">
-						<a className="navbar-brand" href="/">
-							<h2>Todo List</h2>
-						</a>
-						<button className="btn btn-outline-light"> Search </button>
-				</div>
-				<div className="container"> 
-					{ elements } 
-				</div>
-				<div className="footer bg-primary text-light p-2">
-					Open { this.state.openTimes } times
-				</div>
-				</div>
-			)
-		}
+	  render() {
+	    // method to iterate on elements array and create TodoItems of each row
+	    const elements = this.state.elements.map(item => {return (
+	      < TodoItem element={ item } passFromParent={ this.passToChild }/>
+	    )})
+
+	    return (
+	      <div className="bg-info p-2 text-center text-light">
+		<h1 className="m-2">TodoApp</h1>
+		{ elements }
+	      </div>
+	    )
+	  }
+
 	}
 
     ReactDOM.render( 
