@@ -5,6 +5,20 @@ body {
   background: #ddd;
 }
 
+.card {
+  padding: 10px;
+  border: 1px solid #888;
+  margin: 10px;
+}
+
+.card.completed{
+  opacity: 0.5;
+}
+
+.card.completed p{
+  text-decoration: line-through;
+}
+
 .footer {
   position: fixed;
   left: 0;
