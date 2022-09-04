@@ -15,7 +15,7 @@ body {
   opacity: 0.5;
 }
 
-.card.completed p{
+.card.completed h4{
   text-decoration: line-through;
 }
 
