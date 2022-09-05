@@ -40,7 +40,7 @@
 	  componentDidMount() {
 	    fetch("db.json")
 	    .then(res => res.data)
-	    .then(data => console.log(data))   
+	    .then(data => this.setState({elements: data}))   
 	  }
 
 	  passToChild = (id) => {  // id comes back from child
