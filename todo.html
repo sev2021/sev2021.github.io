@@ -39,7 +39,7 @@
 
 	  componentDidMount() {
 	    fetch("db.json")
-	    .then(res => res.text())  //  ------------------- text() is Fetch API method!!!
+	    .then(res => res.json())  //  ------------------- text() and json() are Fetch API methods !!!
 	    .then(text => this.setState({elements: text}))   
 	  }
 
