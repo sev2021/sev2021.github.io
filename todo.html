@@ -17,6 +17,8 @@
     <div id="app"></div>
     <script type="text/babel">
     
+    	import jsonElements from "./db";
+    
 	const TodoItem = ( props ) => {
 	  const classNameNotDone = "card flex-row justify-content-end";
 	  const classNameDone = "card completed flex-row justify-content-end";
@@ -33,12 +35,20 @@
 
 	class Todo extends React.Component{
 	  state = {
-	    elements: [  // arrays of tasks to be done
-	      { id: "223344", title:"Buy nuts and crisps!", isDone: false},
-	      { id: "223355", title:"Charge phone and watch", isDone: true},
-	      { id: "223366", title:"Cook pasta for lunch!", isDone: false}
-	    ],
+	    elements: [],
 	    newElement: "" // value of new input on the list
+	  }
+
+	  componentDidMount() {
+	    
+	    this.setState({ elements: jsonElements.elements })
+	    
+	    fetch("../data/db.json")
+	    .then(res => res.json())
+	    .then(data => {
+	      console.log(data);
+	      // this.setState({ elements: data })
+	    }, (error) => console.log)
 	  }
 
 	  passToChild = (id) => {  // id comes back from child
