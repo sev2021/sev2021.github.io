@@ -39,8 +39,8 @@
 
 	  componentDidMount() {
 	    fetch("db.json")
-	    .then(res => res.data)
-	    .then(data => this.setState({elements: data}))   
+	    .then(res => res.text())  //  ------------------- text() is Fetch API method!!!
+	    .then(text => this.setState({elements: text}))   
 	  }
 
 	  passToChild = (id) => {  // id comes back from child
