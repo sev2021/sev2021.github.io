@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Matching Game</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * { font-family: Arial, sans-serif; 
+            font-size: 1.4rem;  
+        }
+        b {
+            display: inline-block;
+            width: 50px;
+            background-color: #0cd;
+            line-height: 2.2rem;
+            text-align: center;
+        }
+        #game{
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            grid-gap: 3px;
+            width: 212px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="game"></div>
+<div id="congrats" style="display: none; width: 212px; text-align: center">
+    YOU WIN!
+</div>
+
+
+<script>
+    let arr = []; // array of gues numbers, needed to get only pairs
+    let lastTarget = 0; // value of previously selected card (if selected)
+    let busyEvent = 0;  // value of time delay
+    let result = 0;
+
+
+    for(i=0; i<16; i++){ // CREATE GAMEBOARD
+        do{
+            var randArr = Math.floor(Math.random() * 8);
+        }
+        while(arr.filter(item => item == randArr).length > 1)
+
+        arr.push(randArr);
+
+        var elemTag = document.createElement("b");
+        var elemTxt = document.createTextNode(arr[i]);
+        elemTag.appendChild(elemTxt);
+        elemTag.setAttribute('style','color: #0cd;');
+
+        var element = document.querySelector("#game");
+        element.appendChild(elemTag);
+    }
+
+    document.querySelectorAll("b").forEach(     // ATTACHING EVENTS TO CARDS
+        item => item.addEventListener("click", chFont));
+
+
+    function chFont(){  // MAIN GAME FUNCTION
+        var eventTarget = event.target;
+
+        if(eventTarget.style.color == "black" || busyEvent == 1) return;
+        eventTarget.style.color = "black";
+        
+        if(lastTarget == 0){
+            lastTarget = eventTarget;
+        }
+        else{
+            busyEvent = 1; // time delay locked
+
+            setTimeout(function(){ // time delay after 2 cards selected
+
+                if(lastTarget.innerHTML != eventTarget.innerHTML){
+                    lastTarget.style.color = "#0cd";
+                    eventTarget.style.color = "#0cd";
+                }
+                else{
+                    result++;
+                    if(result > 7){
+                        document.querySelector("#congrats").style.display = "block";
+                        return;
+                    }
+                }
+
+                lastTarget = 0;
+                busyEvent = 0; // time delay un-locked
+            }, 1000);
+            
+        }
+    }
+
+</script>
+</body>
+</html>
