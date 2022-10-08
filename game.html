@@ -34,6 +34,7 @@
 
 
 <script>
+
     let arr = []; // array of gues numbers, needed to get only pairs
     let lastTarget = 0; // value of previously selected card (if selected)
     let busyEvent = 0;  // value of time delay
@@ -52,14 +53,11 @@
         var elemTxt = document.createTextNode(arr[i]);
         elemTag.appendChild(elemTxt);
         elemTag.setAttribute('style','color: #0cd;');
+        elemTag.addEventListener("click", chFont);  // ATTACHING EVENTS TO CARDS
 
         var element = document.querySelector("#game");
         element.appendChild(elemTag);
     }
-
-    document.querySelectorAll("b").forEach(     // ATTACHING EVENTS TO CARDS
-        item => item.addEventListener("click", chFont));
-
 
     function chFont(){  // MAIN GAME FUNCTION
         var eventTarget = event.target;
