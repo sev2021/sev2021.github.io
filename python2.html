@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePortfolio</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+<div>
+  
+  
+			<div>
+<h2>Wstęp</h2>
+<p>W poprzednim wpisie poświęconym <a title="Python w służbie pentestera" href="http://sekurak.pl/python-w-sluzbie-pentestera/">tworzeniu narzędzi w Pythonie</a> przedstawiłem kilka prostych skryptów korzystających z modułów <code>sys</code>, <code>os</code> oraz <code>httplib</code>. W tym wpisie „zejdziemy” nieco niżej i zobaczymy, jak tworzyć skrypty, które komunikują się z siecią przez sockety.</p>
+<div class="boxGrey">Python posiada wbudowany moduł o nazwie <i>socket</i>, który zawiera wszystkie niezbędne definicje i funkcje pozwalające na otwieranie gniazd i komunikację sieciową z ich wykorzystaniem.</div>
+<p>Czym są sockety (gniazda)?</p>
+<p>Jest to pewien mechanizm umożliwiający otwarcie kanału komunikacji pomiędzy hostami. Każde gniazdo posiada adres IP oraz numer portu i może przesyłać trzy rodzaje pakietów:</p>
+<ul>
+<li><strong>datagramy</strong> (pakiety UDP) — są to tzw. „datagram sockets”&nbsp;— ten kanał komunikacji wykorzystuje protokół UDP, czyli połączenie jest bezstanowe. Gniazdko wysyła pakiet UDP do docelowego hosta/portu i nie sprawdza, czy komunikacja zakończyła się powodzeniem. Przykładem usługi działającej z użyciem UDP jest DNS (Domain Name Server, port 53);</li>
+<li><strong>strumienie</strong> (pakiety TCP)&nbsp;— czyli „stream sockets”&nbsp;— te gniazdka wysyłają dane za pomocą protokołu TCP, a zatem otwierają kanał komunikacji na określonym porcie, dane wysyłane są w pakietach TCP, gniazdko (socket) nie zamyka połączenia i oczekuje na odpowiedź od hosta docelowego. Przykładem usługi korzystającej z TCP jest HTTP (HyperText Transfer Protocol, port 80&nbsp;— gdy przeglądarka internetowa chce pobrać zasób z serwera WWW, robi to właśnie poprzez zestawienie kanału komunikacji TCP na porcie 80);</li>
+<li><strong>raw sockets</strong> (IP sockets)&nbsp;— ostatni rodzaj to gniazdka, które są w stanie wysyłać pakiety IP z pominięciem obu przedstawionych powyżej rodzajów pakietów, które są niejako opakowaniem dla danych (UDP i TCP). Raw IP sockets pozwalają na zdefiniowanie pakietu IP z dowolnym nagłówkiem i przesłanie go dowolnie zdefiniowanym protokołem (np. ICMP).</li>
+</ul>
+<div class="boxBlue">Podobnie jak w poprzedniej części, wszystkie przykłady zostały napisane w Pythonie w wersji 2.7.6 oraz przetestowane i uruchomione na komputerze działającym pod kontrolą systemu OS X 10.9. Nie powinno być jednak problemów z uruchomieniem ich na dowolnym komputerze z zainstalowanym interpreterem Pythona.</div>
+<p>&nbsp;</p>
+<h2>Pierwszy skrypt</h2>
+<p>Przejdźmy zatem do praktyki. Na początek zobaczmy, co potrafi moduł <code>socket</code>&nbsp;— napiszemy prosty odpowiednik polecenia <code>host</code>, które w przypadku podania nazwy domenowej serwera zwraca nam jego adres IP.</p>
+<pre class="font-size:12 lang:vim highlight:0 decode:true">#!/usr/bin/python
+#
+#  uzycie: 
+#  ./host.py domena
+#
+
+import socket, sys                                                  # [1]
+
+def getHostIP(domain_name):
+    ip_addr = socket.gethostbyname(domain_name)                     # [2]
+    return ip_addr
+
+if __name__ == '__main__':
+    domain = sys.argv[1]
+    print "Adres IP dla domeny %s to %s" % (domain, getHostIP(domain))</pre>
+<p>Po zapisaniu i uruchomieniu skryptu, jako argument podajmy mu domenę serwisu Sekurak, czyli sekurak.pl. Powinniśmy otrzymać rezultat analogiczny do poniższego:</p>
+<pre class="lang:vim highlight:0 decode:true">$ ./host.py sekurak.pl
+Adres IP dla domeny sekurak.pl to 178.32.219.59</pre>
+<p>Po zaimportowaniu modułu <code>socket</code> <strong>[1]</strong>, w funkcji <code>getHostIP()</code> użyliśmy jednej z jego metod, <strong>[2]</strong>, by uzyskać adres IP nazwy domenowej.</p>
+<p>Oczywiście to tylko wycinek możliwości modułu <i>socket</i>. Warto przyjrzeć się dostępnej&nbsp; <a href="http://docs.python.org/2/library/socket.html">dokumentacji</a>.</p>
+<p>&nbsp;</p>
+<h2>Architektura klient-serwer</h2>
+<p>Pora na coś bardziej złożonego. Napiszmy prostą implementację klienta, który będzie wysyłał dane przez protokół TCP, oraz serwera, który te dane odbierze. Zacznijmy od strony klienckiej:</p>
+<pre class="font-size:12 lang:vim highlight:0 decode:true">#!/usr/bin/python
+#
+# KLIENT
+#
+import socket
+
+def sendPacket():
+    proto = socket.getprotobyname('tcp')                             # [1]
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM, proto)     # [2]
+    try:
+        s.connect(("127.0.0.1", 2222))                               # [3]
+        s.send("Hello world")                                        # [4]
+
+        resp = s.recv(1024)                                          # [5]
+        print resp
+    except socket.error:
+        pass
+    finally:
+        s.close()
+
+if __name__ == '__main__':
+    sendPacket()</pre>
+<p>Pierwszą rzeczą, jaką musimy zrobić, zanim zdefiniujemy gniazdo, jest wybór protokołu, w jakim będzie pracować. W tym przykładzie będzie to TCP <strong>[1]</strong>. Następnie tworzymy gniazdko <strong>[2]</strong>, podając niezbędne parametry: <code>socket.AF_INET</code> określa, że korzystamy z adresacji IPv4, <code>socket.SOCK_STREAM</code> to gniazdo przesyłające dane strumieniowo, ostatnim argumentem jest wybrany wcześniej protokół.</p>
+<p>W <strong>[3]</strong> nawiązujemy połączenie z serwerem, który będzie nasłuchiwał połączeń na porcie 2222. Roboczo możemy zastosować np. netcata i nakazać mu nasłuchiwanie na docelowym porcie:</p>
+<pre class="lang:vim highlight:0 decode:true">        $ nc -l 2222</pre>
+<p>Po uruchomieniu przykładu powinniśmy uzyskać rezultat podobny do zamieszczonego poniżej:</p>
+<div id="attachment_8189" style="width: 610px" class="wp-caption aligncenter"><a href="http://sekurak.pl/wp-content/uploads/2014/03/python-screen1.png"><img aria-describedby="caption-attachment-8189" loading="lazy" class="size-medium wp-image-8189" alt="python-screen1" src="http://sekurak.pl/wp-content/uploads/2014/03/python-screen1-600x447.png" srcset="https://sekurak.pl/wp-content/uploads/2014/03/python-screen1-600x447.png 600w, https://sekurak.pl/wp-content/uploads/2014/03/python-screen1-1000x746.png 1000w, https://sekurak.pl/wp-content/uploads/2014/03/python-screen1.png 1065w" sizes="(max-width: 600px) 100vw, 600px" width="600" height="447"></a><p id="caption-attachment-8189" class="wp-caption-text">Screen 1. Górna konsola to uruchomiony skrypt Pythona z listingu powyżej; w dolnej – nasłuchujący na porcie 2222 netcat i odebrana wiadomość.</p></div>
+<p>Spróbujmy teraz zastąpić netcata skryptem napisanym w Pythonie. W tym celu musimy stworzyć prosty serwer, który będzie w stanie odebrać i wyświetlić dane wysłane klientem z poprzedniego przykładu.</p>
+<pre class="font-size:12 lang:vim highlight:0 decode:true">#!/usr/bin/python
+#
+# SERWER
+#
+
+import socket
+
+def server():
+    proto = socket.getprotobyname('tcp')                             # [1]
+    serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM, proto)     
+
+    serv.bind(("localhost", 2222))                                   # [2]
+    serv.listen(1)                                                   # [3]
+    return serv
+
+serv = server()
+
+while 1:
+    conn, addr = serv.accept()                                       # [4]
+    while 1:
+        message = conn.recv(64)                                      # [5]
+        if message:
+            conn.send('Hi, I am a server, I received: ' + message) 
+        else:
+            break
+    conn.close()</pre>
+<p>Podobnie jak w poprzednim przykładzie, tworzymy gniazdo TCP <strong>[1]</strong>, ale tym razem, zamiast inicjować połączenie, otwieramy port 2222 <strong>[2]</strong>, do którego „podpinamy” nasze gniazdo, od tego momentu nasłuchując danych, które będą zaadresowane na ten port <strong>[3]</strong>. Argument metody <code>listen(1)</code> to ilość równoczesnych połączeń, jaką serwer ma obsłużyć&nbsp;— dla naszego przykładu wystarczy jedno.</p>
+<p>Po uruchomieniu serwera i nawiązaniu połączenia (które tworzy identyfikator <code>conn</code>&nbsp;— po tym identyfikatorze będziemy mogli odczytać dane, które nim nadeszły) odczytujemy <strong>[4]</strong> ze strumienia po 64 bajty <strong>[5]</strong> tak długo, jak pojawiają się nowe dane (w naszym przykładzie jest to tylko ciąg „Hello World!!!”, więc pętla zakończy się po pierwszej iteracji). Odebrane dane odsyłamy z powrotem, korzystając z identyfikatora połączenia <code>conn</code>&nbsp;— ponieważ klient ma zaimplementowane odbieranie danych, rezultatem będzie wyświetlenie zwróconego przez serwer ciągu w konsoli klienta (listing KLIENT, linijka <strong>[5]</strong>).</p>
+<div id="attachment_8190" style="width: 610px" class="wp-caption aligncenter"><a href="http://sekurak.pl/wp-content/uploads/2014/03/python-screen2.png"><img aria-describedby="caption-attachment-8190" loading="lazy" class="size-medium wp-image-8190" alt="python-screen2" src="http://sekurak.pl/wp-content/uploads/2014/03/python-screen2-600x444.png" srcset="https://sekurak.pl/wp-content/uploads/2014/03/python-screen2-600x444.png 600w, https://sekurak.pl/wp-content/uploads/2014/03/python-screen2-1000x740.png 1000w, https://sekurak.pl/wp-content/uploads/2014/03/python-screen2.png 1032w" sizes="(max-width: 600px) 100vw, 600px" width="600" height="444"></a><p id="caption-attachment-8190" class="wp-caption-text">Screen 2. Górna konsola to nasz serwer, w dolnej – ponownie uruchomiony klient oraz odpowiedź serwera.</p></div>
+<p>&nbsp;</p>
+<h2>Prosta implementacja polecenia <code>traceroute</code></h2>
+<p>Pora na bardziej użyteczny przykład. Poniżej znajduje się kod źródłowy implementujący funkcjonalność polecenia <code>traceroute</code> (<a href="http://linux.die.net/man/8/traceroute">traceroute(8) – Linux man page</a>, jego odpowiednikiem w systemach z rodziny Windows jest <code>tracert</code>). Oczywiście jest to bardzo uproszczony odpowiednik, ale doskonale nadaje się na przedstawienie zagadnienia definiowania gniazd sieciowych.</p>
+<p>Przykład pochodzi ze strony <a href="https://blogs.oracle.com/ksplice/entry/learning_by_doing_writing_your">Learning by doing: Writing your own traceroute in 8 easy steps</a>.</p>
+<p>Na początek kod źródłowy:</p>
+<pre class="font-size:12 width:710 lang:vim highlight:0 decode:true crayon-selected">#!/usr/bin/python
+
+import socket,sys
+
+def main(dest_name):
+    dest_addr = socket.gethostbyname(dest_name)                                 # [1]
+    port = 33434
+    max_hops = 30
+    icmp = socket.getprotobyname('icmp')                                        
+    udp = socket.getprotobyname('udp')                                          
+    ttl = 1                                                                     
+    while True:
+        recv_socket = socket.socket(socket.AF_INET, socket.SOCK_RAW, icmp)      # [2]
+        send_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, udp)     
+        send_socket.setsockopt(socket.SOL_IP, socket.IP_TTL, ttl)               # [3]
+        recv_socket.bind(("", port))                                            # [4]
+        send_socket.sendto("", (dest_name, port))                               # [5]
+        curr_addr = None
+        curr_name = None
+        try:
+            _, curr_addr = recv_socket.recvfrom(512)
+            curr_addr = curr_addr[0]
+            try:
+                curr_name = socket.gethostbyaddr(curr_addr)[0]
+            except socket.error:
+                curr_name = curr_addr
+        except socket.error:
+            pass
+        finally:
+            send_socket.close()
+            recv_socket.close()
+
+        if curr_addr is not None:
+            curr_host = "%s (%s)" % (curr_name, curr_addr)
+        else:
+            curr_host = "*"
+        print "%d\t%s" % (ttl, curr_host)
+
+        ttl += 1
+        if curr_addr == dest_addr or ttl &gt; max_hops:
+            break
+
+if __name__ == "__main__":
+    host = sys.argv[1]
+    main(host)</pre>
+<p>Jak widzimy, wykorzystane zostały wszystkie poznane do tej pory mechanizmy socketów&nbsp;— odczytanie adersu IP z nazwy domenowej <strong>[1]</strong>, utworzenie gniazd korzystających z protokołu ICMP (do wysyłania pakietów) oraz UDP <strong>[2]</strong>, ustawianie opcji TTL (Time To Live) dla wysyłanych pakietów <strong>[3]</strong> (o tym akurat nie mówiliśmy, ale opis funkcji <code>setsockopt()</code>można znaleźć w dokumentacji modułu <code>socket</code>&nbsp;— <a href="http://docs.python.org/2/library/socket.html?highlight=setsockopt#socket.socket.setsockopt">socket.setsockopt(level, optname, value)</a>).</p>
+<p>Jak widać, dzięki bardzo dużej elastyczności modułu <code>socket</code>, jesteśmy w stanie operować na różnych typach gniazd <strong>[4]</strong> czy kierunku komunikacji <strong>[5]</strong>, nie jesteśmy także ograniczeni tylko przez jeden protokół.</p>
+<p>&nbsp;</p>
+<h2>Zakończenie</h2>
+<p>Przedstawione w artykule zagadnienia to tak naprawdę tylko czubek czubka góry lodowej, jaką jest programowanie (nie tylko w Pythonie i nie tylko sieciowe). Niewątpliwą zaletą opanowania mechanizmu socketów i sposobu pisania programów, które z nich korzystają, jest fakt, że implementacje w innych językach nie różnią się zbytnio (np. C.C++), oczywiście w ogólnych założeniach. To niewątpliwie bardzo ułatwia choćby przenoszenie kodu pomiędzy różnymi platformami.</p>
+<p></p><div class="boxBlue">Gorąco zachęcam do nauki Pythona. Nawet, jeśli nie jesteś programistą(-tką) – umiejętność tworzenia różnych skryptów w popularnym, interpretowanym języku niewątpliwie wzbogaci warsztat każdego pentestera czy specjalisty od bezpieczeństwa teleinformatyczngo</div>.<p></p>
+<p>&nbsp;</p>
+<h2>Źródła</h2>
+<ul>
+<li><a href="https://blogs.oracle.com/ksplice/entry/learning_by_doing_writing_your">Learning by doing: Writing your own traceroute in 8 easy steps</a> | Oracle Blogs</li>
+<li><a href="http://docs.python.org/2/library/socket.html">17.2. socket — Low-level networking interface</a> | The Python Standard Library</li>
+<li><a href="http://docs.python.org/2/howto/sockets.html">Socket Programming HOWTO</a> | Python HOWTOs</li>
+</ul>
+<p>&nbsp;</p>
+<p style="text-align: right;"><em>Rafał 'bl4de’ Janicki</em>– bloorq[at]gmail.com</p>
+</div>
+		
+  </div>
+  </body>
