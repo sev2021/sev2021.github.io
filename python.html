@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePortfolio</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+<div>
+
+  <h2>Wstęp</h2>
+  <div class="boxGrey">Język <a href="http://python.org/about/">Python</a> to interpretowany język skryptowy obecny praktycznie we wszystkich liczących się dzisiaj systemach operacyjnych. Jego uniwersalność, dość prosta i przyswajalna składnia oraz mnogość istniejących rozszerzeń (w nomenklaturze Pythona zwanych modułami) sprawia, że jest bardzo chętnie wykorzystywany jako narzędzie do tworzenia zarówno prostych, konsolowych skryptów, jak i do aplikacji desktopowych czy serwisów internetowych.</div>
+  <p>Z tych powodów jest także jednym z częściej wybieranych przez specjalistów od bezpieczeństwa języków służących do pisania narzędzi przydatnych w tej dziedzinie.Oto kilka najbardziej znanych.</p>
+  <h3>1. scapy</h3>
+  <p>Na pewno każdy, kto zetknął się z tematyką szeroko rozumianego bezpieczeństwa informatycznego, słyszał bądź używał świetnego generatora pakietów <a href="http://sekurak.pl/generator-pakietow-scapy/">scapy</a>. Scapy napisany został w Pythonie, każdy, kto ma ochotę przeanalizować jego kod źródłowy, może to zrobić, zaglądając do oficjalnego repozytorium kodu na <a href="http://hg.secdev.org/scapy/file/74274bb47d3c/scapy">stronie</a>, bądź pobrać go bezpośrednio na swój komputer (potrzebny będzie zainstalowany klient systemu kontroli wersji Mercurial).</p>
+  <h3>2. sqlmap</h3>
+  <p>Drugim powszechnie znanym narzędziem stworzonym przy pomocy Pythona jest <a href="http://sqlmap.org/">sqlmap</a>, czyli zautomatyzowany skaner podatności SQL Injection. Także w jego przypadku autorzy stawiają na otwartość kodu źródłowego, więc nie ma żadnych przeszkód, by <a href="http://sqlmap.org/">repozytorium kodu sqlmapa</a> pobrać i zapoznać się z nim lokalnie (wymagany klient systemu kontroli wersji Git).</p>
+  <h3>3. w3af</h3>
+  <p>Kolejnym przykładem jest framework do przeprowadzania testów penetracyjnych aplikacji webowych – <a href="http://w3af.org/">w3af</a>. Ten rozwijany przez Andresa Ranchio projekt to doskonały przykład na to, jak Python może posłużyć do zbudowania zaawansowanej aplikacji, której możliwości nie ograniczają się jedynie do wyświetlania prostych komunikatów na ekranie (w3af można używać zarówno jako aplikacji konsolowej, jak i desktopowej z graficznym GUI). Kod źródłowy dostępny jest w serwisie GitHub – <a href="https://github.com/andresriancho/w3af">andresriancho/w3af</a>.</p>
+  <h3>4. Golismero</h3>
+  <p>Projektem podobnym do w3af, choć nieco mniej rozbudowanym, jest <a href="http://golismero-project.com/">Golismero</a> – bardzo przyjemne w użyciu zautomatyzowane narzędzie do wyszukiwania podatności w aplikacjach webowych. Golismero wyróżnia się funkcją generowania raportu w formacie HTML lub tekstowym (co może przydać się np. przy przygotowywaniu raportu z testu penetracyjnego) oraz łatwością rozbudowy o nowe pluginy. Kod źródłowy Golismero można pobrać z repozytorium w serwisie GitHub – <a href="https://github.com/golismero/golismero">golismero/golismero</a>.</p>
+  <p>To tylko kilka przykładów z bardzo bogatej gamy programów napisanych w Pythonie. Ale to nie koniec: jest to też jeden z najczęściej wykorzystywanych języków do tworzenia exploitów czy wszelkiej maści rozszerzeń do innych popularnych narzędzi – np. dla <a href="http://portswigger.net/burp/extender/">Burp Suite</a>.</p>
+  <p>Poznaliśmy kilka projektów stworzonych w Pythonie, czas przyjrzeć się nieco dokładniej samemu językowi i paru jego funkcjom.</p>
+  <p>&nbsp;</p>
+  <h2>Dlaczego warto poznać Pythona</h2>
+  <p>Niewątpliwie jedną z bardziej pożądanych umiejętności każdego specjalisty bezpieczeństwa IT jest zdolność programowania (choćby podstawowa) i znajomość co najmniej jednego języka programowania.</p>
+  <p>Do efektywnej pracy (przykładowo w charakterze specjalisty od bezpieczeństwa aplikacji webowych) przydaje się znajomość HTML, JavaScript oraz technologii serwerowych, takich jak PHP, Java/JavaEE, Perl, ASP.NET. Specjalista zajmujący się analizą złośliwego oprogramowania (wirusów, rootkitów, malware instalującego się w systemie operacyjnym) powinien mieć opanowane w stopniu co najmniej dobrym takie języki jak C, C++ czy Assembler. Każdy, w zależności od swoich upodobań oraz przyjętej ścieżki rozwoju zawodowego i w ramach specjalizacji, powinien we własnym zakresie poświęcić nieco czasu na poznanie i naukę wybranego bądź wybranych języków.</p>
+  <p>Wydaje się jednak niezbędnym minimum, by każdy, niezależnie od konkretnego zadania, któremu poświęca swój czas, był w stanie pomóc sobie przez zautomatyzowanie pewnych czynności w postaci choćby prostego skryptu powłoki czy konsolowej aplikacji napisanej w interpretowanym języku (Perl bądź Python).</p>
+  <p>Ma to dwojaką korzyść – nauka języka oraz jego stosowanie w praktyce bardzo rozwijają warsztat oraz umiejętności praktyczne, co jest cechą szczególnie pożądaną w branży Security. Drugą korzyścią jest budowanie własnego, unikalnego zestawu narzędzi, które bardzo często, jako wyspecjalizowane w konkretnym zadaniu (niemal jak skalpel chirurgiczny), sprawdzą się dużo lepiej niż dostępne powszechnie gotowe rozwiązania-kombajny.</p>
+  <p>Wybrałem Pythona między innymi z powodów, które podałem na wstępie – jego względnie dużą popularność w porównaniu choćby do Perla, dostępność na różnych platformach oraz całkiem prostą do przyswojenia składnię – choć tu początkowo wpadłem w pewną pułapkę, wynikającą z doświadczenia z innymi językami – bloki kodu w Pythonie są wyznaczane przez głębokość wcięć, a nie nawiasy klamrowe, jak ma to miejsce w C, Javie, PHP czy JavaScript.</p>
+  <div class="boxBlue">Na początek mała uwaga – niniejszy artykuł nie jest tutorialem, który ma nauczyć kogokolwiek programowania w Pythonie od podstaw – jest cała masa materiałów, samouczków i tutoriali, łącznie z oficjalną dokumentacją języka na stronie <a href="http://www.python.org">Python.org</a>. Artykuł zawiera zbiór kilku prostych narzędzi konsolowych napisanych przy użyciu języka Python, wykonujących ściśle określone zadania, które mogą być inspiracją do samodzielnej nauki i wykorzystania Pythona we własnym zakresie i w swoich projektach.</div>
+  <div class="boxBlue">Wszystkie przykłady zostały napisane w Pythonie w wersji 2.7.6 oraz przetestowane i uruchomione na komputerze działającym pod kontrolą systemu OS X 10.9. Nie powinno być najmniejszych problemów z ich uruchomieniem w dowolnej dystrybucji systemów Linux i FreeBSD.</div>
+  <p>&nbsp;</p>
+  <h2>Trochę podstaw</h2>
+  <p>Programy w Pythonie bardzo rzadko pisane są z wykorzystaniem jedynie podstawowych konstrukcji języka. Do budowy bardziej skomplikowanych skryptów wykorzystuje się <a href="http://docs.python.org/2/tutorial/modules.html">moduły</a>, czyli gotowe do użycia biblioteki wyspecjalizowane w określonych zadaniach.</p>
+  <p>W przykładach zostały użyte moduły:</p>
+  <ul>
+  <li><a href="http://docs.python.org/2/library/httplib.html?highlight=httplib#httplib">httplib </a> – będący implementacją protokołu HTTP po stronie klienta,</li>
+  <li><a href="http://docs.python.org/2/library/sys.html?highlight=sys#sys">sys</a> – zawierający mnóstwo wbudowanych funkcji i pozwalający m.in. na odczyt argumentów linii poleceń,</li>
+  <li><a href="http://docs.python.org/2/library/os.html?highlight=os#os">os</a> – będący interfejsem umożliwiającym wykonywanie poleceń powłoki systemowej.</li>
+  </ul>
+  <p>Poza modułami dostępnymi wraz z językiem, Python umożliwia programiście pisanie własnych i ich wykorzystywanie w innych programach.</p>
+  <p>&nbsp;</p>
+  <h2>Skrypt pierwszy – Banner Grabber</h2>
+  <p>Na początek coś bardzo prostego – Banner Grabber, czyli narzędzie do odpytywania serwera WWW o jego sygnaturę. Nazwa skryptu pochodzi od techniki znanej jako <a href="http://en.wikipedia.org/wiki/Banner_grabbing">„banner grabbibng”</a>.</p>
+  <p>Kod źródłowy skryptu zawiera kilka elementów, które poniżej omawiam dokładniej:</p>
+  <pre class="font-size:12 lang:vim highlight:0 decode:true crayon-selected">    #!/usr/bin/python                                              # [1]
+      import httplib                                                 # [2]
+      import sys
+
+      def main(host, port, url):                                     # [6]
+
+          conn = httplib.HTTPConnection(host, port);                 # [7]
+          conn.request("HEAD", url)                                  # [8]
+          response = conn.getresponse()                              # [9]
+
+          print "HTTP response code: ", response.status              # [10]
+          print "web server banner: ", response.getheader("Server")
+
+      if __name__ == '__main__':                                     # [3]
+          host = sys.argv[1]                                         # [4]
+          port = sys.argv[2]
+          url = sys.argv[3]
+
+          main(host, port, url)                                      # [5]</pre>
+  <p>W linijce oznaczonej <strong>[1]</strong> znajduje się informacja, że skrypt jest napisany w języku Python i do jego uruchomienia system powinien użyć interpretera tego języka (a konkretnie – uruchomić program <i>python</i> z katalogu <i>/usr/bin</i>).</p>
+  <p>Kolejne dwie instrukcje <strong>[2]</strong> służą do zaimportowania do naszego skryptu modułów <code>httplib</code> oraz <code>sys</code> – będziemy korzystać z ich funkcjonalności w dalszej części skryptu.</p>
+  <p>Konstrukcja <code>if __name__ == '__main__':</code> w linii <strong>[3]</strong> jest pewnym programistycznym trickiem charakterystycznym dla Pythona, dokładniejszy opis tej techniki można znaleźć np. pod tym adresem <a href="http://blog.furas.pl/uzycie-__name__-pythonie/">Użycie __name__ w Pythonie</a>).</p>
+  <p>W kolejnych linijkach <strong>[4]</strong> odczytujemy argumenty wiersza poleceń. <code>sys.argv</code> to tablica, której pierwszy element (o zerowym indeksie – w Pythonie, podobnie jak w innych językach, indeksy elementów tablic liczymy od 0) – to nazwa skryptu. Dlatego argumenty, którymi w tym przypadku będą: host, port oraz adres url, odczytujemy jako elementy tablicy <code>argv</code> o indeksach od 1 do 3. Przykładowe wywołanie (odpytanie serwera WWW serwisu sekurak.pl, na porcie 80 i w głównym drzewie katalogów /) będzie wyglądało następująco:</p>
+  <pre class="lang:vim highlight:0 decode:true">            $ ./banner_grabber.py sekurak.pl 80 /</pre>
+  <p><strong>[5]</strong> to wywołanie funkcji, zdefiniowanej w <strong>[6]</strong>. Jak widzimy, funkcja przyjmuje jako argumenty to, co wcześniej odczytaliśmy z linii poleceń. Następnie <strong>[7]</strong> tworzone jest połączenie do określonego hosta na podanym porcie, a następnie wywoływany jest adres url <strong>[8]</strong>. Stosujemy tu metodę HEAD, gdyż nie zależy nam na treści strony, a jedynie na samym nagłówku odpowiedzi HTTP. Ze zwróconego nagłówka <strong>[9]</strong> odczytujemy liczbowy status odpowiedzi HTTP (tak dla pewności) <strong>[10]</strong> oraz interesującą nas informację, czyli nagłówek <i>Server</i>.</p>
+  <p>W odpowiedzi powinniśmy otrzymać komunikat:</p>
+  <pre class="font-size:12 lang:vim highlight:0 decode:true">            HTTP response code:  301
+              web server banner:  Apache</pre>
+  <p>&nbsp;</p>
+  <h2>Skrypt drugi – Reverse DNS Scanner</h2>
+  <p>Bardzo często w trakcie przeprowadzania rekonesansu zachodzi konieczność ustalenia, jakie nazwy domenowe odpowiadają konkretnym adresom IP w badanej sieci. Jak wiemy, służy do tego m.in. konsolowa komenda <code>host</code> (aby więcej dowiedzieć się o opcjach udostępnianych przez tę komendę, wpisz w swojej konsoli polecenie <code>man host</code>).</p>
+  <p>Jeśli zachodzi konieczność sprawdzenia kilku adresów IP, wydanie za każdym razem polecenia <code>host</code> wraz z adresem IP nie wydaje się jeszcze jakoś specjalnie uciążliwe. Problem pojawia się w przypadku większej liczby adresów IP, np. całej podsieci składającej się z 255 adresów.</p>
+  <p>W takim wypadku można skorzystać z drugiego skryptu, a mianowicie prostego DNS Reverse Scannera. Jedynym jego zadaniem jest przeiterowanie przez cały zakres podanych mu adresów IP i wykonanie polecenia <code>host</code> na każdym z nich.</p>
+  <pre class="font-size:12 lang:vim highlight:0 decode:true">    #!/usr/bin/python
+      import sys, os
+
+      def main(ip_start, ip_end):
+          start = ip_start.split(".")                     # [1]
+          end = ip_end.split(".")
+
+          for lastGroup in range( int(start[3]), int(end[3]) ):
+              ip = "%s.%s.%s.%s" % (start[0],start[1],start[2],lastGroup)
+              os.system('host %s' % (ip))                 # [2]
+
+          # print start, end
+
+      if __name__ == '__main__':
+          main(sys.argv[1], sys.argv[2])</pre>
+  <p>Poza konstrukcją <strong>[1]</strong>, która rozbija dwa podane adresy IP, budując z ostatnich części adresów przedział, w jakim ma wykonać się pętla poniżej, warta zwrócenia uwagi jest linijka <strong>[2]</strong>. Polecenie <code>system</code> z modułu <code>os</code> pozwala nam na wykonanie dowolnego polecenia powłoki tak, jakbyśmy wpisali je bezpośrednio w konsoli (wynik otrzymujemy również w konsoli).</p>
+  <p>Jak można się spodziewać, skrypt zwraca listę informacji o odnalezionych nazwach domenowych z serwerów DNS, odpowiadających badanym adresom IP:</p>
+  <pre class="font-size:12 lang:vim highlight:0 decode:true">$ ./reversedns.py 212.77.100.10 212.77.100.20
+
+  10.100.77.212.in-addr.arpa domain name pointer www.rozrywkaprzyszlosci.orange.pl.
+  11.100.77.212.in-addr.arpa domain name pointer centralagier.pl.
+  12.100.77.212.in-addr.arpa domain name pointer si.wp.pl.
+  13.100.77.212.in-addr.arpa domain name pointer komiks.wp.pl.
+  14.100.77.212.in-addr.arpa domain name pointer telefon.wp.pl.
+  15.100.77.212.in-addr.arpa domain name pointer profilbiznesowy.wp.pl.
+  16.100.77.212.in-addr.arpa domain name pointer horoskop.wp.pl.
+  17.100.77.212.in-addr.arpa domain name pointer adtotal.pl.
+  18.100.77.212.in-addr.arpa domain name pointer w.wp.pl.
+  19.100.77.212.in-addr.arpa domain name pointer historia.wp.pl.</pre>
+  <p>Dla porównania – podobne narzędzie napisałem kiedyś w języku Perl. Jego źródło można znaleźć pod tym <a href="https://github.com/bl4de/myrevdns.pl/blob/master/myrevdns.pl">adresem</a>. Skrypt w Pythonie jest nieco bardziej przejrzysty i łatwiejszy w interpretacji.</p>
+  <p>&nbsp;</p>
+  <h2>Skrypt trzeci – Admin Panel Scanner</h2>
+  <p>W trakcie testów penetracyjnych aplikacji webowych jedną z pierwszych czynności jest próba odnalezienia bądź odgadnięcia lokalizacji części administracyjnej (np. w celu zbadania podatności na błędy uwierzytelniania). Ponieważ programiści to ludzie z natury leniwi, w większości przypadków lokalizacja takiego panelu administracyjnego to katalog lub plik o nazwie wywodzącej się od słów 'admin’ lub 'login’.</p>
+  <p>Ponieważ konkretna lokalizacja może zależeć od technologii, w jakiej powstał serwis, bądź od struktury katalogów wymuszonej np. przez użycie określonego frameworka czy systemu, do szybkiej lokalizacji sekcji administracyjnej może przydać się kolejny z prezentowanych skryptów:</p>
+  <pre class="font-size:12 lang:vim highlight:0 decode:true">#!/usr/bin/python
+  import httplib
+  import catalogs                                     # [1]
+  import sys
+
+  def scan(conn, path, dirs):
+      logfile = open("logfile.txt", "a")              # [3]
+      for d in dirs:
+          d = d.replace("\n", "")
+          _url = "/%s/%s" % (path,d)                  # [4]
+          _output = ""
+
+          conn.request("GET", _url)
+          response = conn.getresponse()
+          response.read()                             # [5]
+
+          if (response.status == 200 or response.status == 302 or response.status == 304):
+              _output = "HTTP %s %s \t\t\turl is %s" % (response.status, response.reason, _url)
+          if (response.status == 401):
+              _output = "HTTP %s %s \t\t\t, Unauthorized; url is %s" % (response.status, response.reason, _url)
+          if (response.status == 403):
+              _output = "HTTP %s %s \t\t\t, Needs authorization; url is %s" % (response.status, response.reason, _url)
+
+          if (_output):                               # [6]
+              print _output
+              logfile.writelines(_output + "\n")      # [7]
+
+      logfile.close()                                 # [8]
+
+  def main():
+      adminpanels = catalogs.adminpanels              # [2]
+      conn = httplib.HTTPConnection(sys.argv[1])
+      path = sys.argv[2]
+
+      print "Trying to locate administration panel:"
+      scan(conn, path, adminpanels)
+
+  if __name__ == '__main__':
+      main()</pre>
+  <p>Podobnie jak w pierwszym skrypcie skorzystamy z modułów <code>sys</code> oraz <code>httplib</code>. Dodatkowo w naszym programie użyjemy modułu naszego autorstwa. Moduł ten będzie składał się tylko z definicji tablicy zawierającej listę ścieżek do kilkuset najpopularniejszych lokalizacji paneli administracyjnych. Moduł można pobrać spod tego <a href="https://github.com/bl4de/dirscanner/blob/master/catalogs.py">adresu</a>, a używamy go w postaci prostego przypisania do zmiennej w naszym skrypcie <strong>[2]</strong>.</p>
+  <p>Po wywołaniu funkcji <code>scan()</code> wraz z interesującymi nas parametrami, czyli odczytanymi z linii poleceń nazwami hosta i ścieżki do aplikacji www na serwerze, pierwszą instrukcją jest otwarcie pliku logu <strong>[3]</strong>, w którym skrypt zapisze wszystkie odnalezione ścieżki. Jak widać, otwarcie pliku w Pythonie graniczna się do podania jego nazwy oraz trybu (zapis, odczyt, dodawanie) – więcej na ten temat znajduje się w <a href="http://docs.python.org/2/tutorial/inputoutput.html#reading-and-writing-files">dokumentacji</a>. W <strong>[4]</strong> następuje złożenie konkretnego adresu url, składającego się z podanej jako argument ścieżki do aplikacji i doklejonej do niej lokalizacji odczytanej z tablicy <code>adminpanels</code>.</p>
+  <p>Wszystko odbywa się w pętli, za każdym razem po wywołaniu adresu sprawdzany jest status HTTP odpowiedzi <strong>[5]</strong>. Jeśli zawiera on wartość wskazującą, że pod danym adresem znajduje się dostępny zasób (200, 301, 302, 304, 401 lub 403), skrypt wyświetla nam odpowiednią informację na wyjściu <strong>[6]</strong>, jednocześnie zapisując ją w pliku logu <strong>[7]</strong>.</p>
+  <p>Po zakończeniu pracy plik z logiem jest zamykany, by zwolnić zasoby systemowe <strong>[8]</strong>, a program kończy działanie. Wywołując <i>Admin Panel Scanner</i> przykładowo dla serwisu opartego na WordPress, otrzymamy:</p>
+  <pre class="font-size:12 lang:vim highlight:0 decode:true">    $ ./adminscanner.py localhost wordpress
+
+      Trying to locate administration panel:
+      HTTP 200 OK             url is /wordpress/wp-login.php
+
+      $ cat logfile.txt
+      HTTP 200 OK             url is /wordpress/wp-login.php
+
+      $</pre>
+  <p>&nbsp;</p>
+  <h2>Skrypt czwarty – XSS UTF-16 Payload Encoder</h2>
+  <p>Na zakończenie skrypt, którego jedynym zadaniem jest translacja podanego ciągu do sekwencji znaków zakodowanych w postaci wartości UTF-16. UTF-16 to jeden z akceptowanych przez przeglądarki internetowe formatów zapisu kodu JavaScript. Kodowanie w formacie UTF-16 jest często wykorzystywane w przypadku tworzenia payloadów do testowania podatności na błędy XSS (innymi formatami jest np. URL Encoding, który zamienia znaki specjalne, jak &lt; czy ” na %3c i %22).</p>
+  <pre class="font-size:12 lang:vim highlight:0 decode:true">    #!/usr/bin/python
+      # utf16encoder
+
+      import sys
+
+      def encode(str):
+          encoded = ''
+          for character in str:
+              encoded += "\u" + hex(ord(character)).replace("0x","00")    # [1]
+
+          print encoded
+
+      def usage():                                                        # [2]
+          print "Too few arguments.\n"            
+          print "usage: utf16encoder.py \n"
+          quit()
+
+      if __name__ == '__main__':
+
+          if sys.argv.__len__() == 2:
+              encode(sys.argv[1])
+          else:
+              usage()</pre>
+  <p>W porównaniu z poprzednimi skryptami ten wzbogaciliśmy o niewielką pomoc w przypadku, gdy użytkownik poda nieprawidłową liczbę argumentów <strong>[2]</strong>. Omówienie należy się też linijce <strong>[1]</strong> – iterując po kolejnych znakach ciągu wejściowego, zamieniamy każdy znak na (kolejno):</p>
+  <ul>
+  <li>jego odpowiednik dziesiętny w kodzie ASCII – realizuje to zadanie funkcja <a href="http://docs.python.org/2/library/functions.html?highlight=ord#ord">ord()</a>,</li>
+  <li>wartość otrzymaną jako rezultat f-cji ord() zamieniamy na odpowiadającą jej liczbę szesnastkową przy pomocy <a href="http://docs.python.org/2/library/functions.html?highlight=hex#hex">hex()</a>,</li>
+  <li>ponieważ poprzednia operacja dodaje nam ciąg '0x’ przed szesnastkową reprezentacją znaku, a my potrzebujemy postaci UTF-16, czyli cztery cyfry poprzedzone znakiem '\u’ wykonujemy kolejną zamianę, ostatecznie otrzymując odpowiednio zakodowany znak.</li>
+  </ul>
+  <p>Po zakończeniu przeliczania wszystkich znaków ciągu zwracamy na wyjściu gotowy zakodowany payload:</p>
+  <pre class="font-size:12 lang:vim highlight:0 decode:true crayon-selected">$ ./utf16encoder.py "&lt;script&gt;alert('XSS')&lt;/script&gt;"
+
+  \u003c\u0073\u0063\u0072\u0069\u0070\u0074\u003e\u0061\u006c\u0065\u0072\u0074
+  \u0028\u0027\u0058\u0053\u0053\u0027\u0029\u003c\u002f\u0073\u0063\u0072\u0069
+  \u0070\u0074\u003e</pre>
+  <p>&nbsp;</p>
+  <h2>Zakończenie</h2>
+  <p>Przedstawione skrypty są bardzo proste, nie zawierają praktycznie żadnej obsługi błędów, a ich funkcjonalność pozostawia wiele do życzenia. Niemniej jednak mają jedną niezaprzeczalną zaletę: wykonują zadania, do których zostały napisane i robią to szybko niezależnie od środowiska, a ich uruchomienie sprowadza się do wpisania odpowiedniego polecenia w konsoli. Napisanie podobnego narzędzia, po nabraniu wprawy i doświadczenia w posługiwaniu się Pythonem, często może okazać się szybsze, niż wyszukanie, pobranie z sieci, instalacja i uruchomienie spełniającego konkretne zadanie „dużego” programu.</p>
+  <p>Niewątpliwie satysfakcjonująca będzie również świadomość, że korzystamy z własnoręcznie napisanego programu. Kto wie, być może z prostego skryptu, który powstanie z konieczności przeprowadzenia określonego zadania, z czasem powstanie rozbudowane i uznane w świecie specjalistów od zabezpieczeń narzędzie?</p>
+  <p>&nbsp;</p>
+  <h2>Źródła</h2>
+  <p>Jak napisałem we wstępie, w Internecie istnieje bardzo dużo materiałów do samodzielnej nauki języka Python na każdym poziomie zaawansowania. Sam rozpocząłem swoją przygodę z tym językiem (do czego również zachęcam, ale może ktoś poda lepsze źródła w komentarzu do tego tekstu) od oficjalnego tutoriala dostępnego na stronie projektu pod adresem <a href="http://docs.python.org/2/tutorial/index.html">The Python Tutorial</a>.</p>
+  <p>Oczywiście, jak w przypadku każdego języka, podstawą w trakcie nauki jest dokumentacja – na stronie <a href="http://docs.python.org/2/">Python v2.7.6 documentation</a> znajdziemy podzieloną na działy, aktualizowaną i bardzo, bardzo bogatą dokumentację Pythona 2.7.6</p>
+  <p>Inne źródła:</p>
+  <ul>
+  <li><a href="http://dirk-loss.de/python-tools.htm">Python tools for penetration testers</a> – spis narzędzi związanych z bezpieczeństwem, napisanych w Pythonie.</li>
+  <li><a href="http://www.binary-zone.com/course/HTID/Python4Infosec.pdf">Writing Basic Security Tools using Python</a> – prezentacja Ali Al-Shemery (w formacie pdf) na opisywany temat i inspiracja do napisania powyższego tekstu. Stanowi doskonałe, szybkie wprowadzenie w tematykę programowania sieciowego w Pythonie, modułów httplib, urllib i ich wykorzystania. Zawiera też kilka praktycznych przykładów.</li>
+  </ul>
+  <p style="text-align: right;">—<em>Rafał 'bl4de’ Janicki</em>– bloorq[at]gmail.com</p>
+  </div>
+  </body>
