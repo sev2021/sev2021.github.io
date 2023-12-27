@@ -16,7 +16,7 @@
 }
 
 button {
-
+    border: 1px solid #fff;
     font-size: 24px;
     color: #fff;
     background-image: url("/images/porsche.jpg");
