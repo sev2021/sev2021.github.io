@@ -1,4 +1,7 @@
-/* used for https://sev2021.github.io/mix game */
+#main {
+    max-width: 1200px;
+    margin: 20px auto;
+}
 #btns {
     display: grid;
     margin: 0 auto;
@@ -9,19 +12,26 @@
     grid-gap: 0px;
 }
 
-#mix {
-    margin: 10px 40%;
-    width: 20%;
-
+#mix, #reset {
+    margin: 10% 12%;
+    float: left;
+    width: 25%;
+    padding: 5%;
+    font-size: 2rem;
+    opacity: 0.8;
+    cursor: pointer;
+}
+#mix:hover, #reset:hover {
+    opacity: 1;
 }
 
 button {
-    border: 1px solid #fff;
     font-size: 24px;
     color: #fff;
     background-image: url("/images/porsche.jpg");
     background-repeat: no-repeat;
     background-size: 300% 400%;
+    border: 1px solid #fff;
 }
 
 .img0 {
