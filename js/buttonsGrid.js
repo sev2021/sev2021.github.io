@@ -21,6 +21,9 @@ document.querySelector("#mix").onclick = () => {
         document.querySelector("#btn" + btn).dispatchEvent(new Event("click"));
     }
 }
+document.querySelector("#reset").onclick = () => {
+    location.reload();
+}
 
 function chBtn(event){
     const pressed = event.target || event.srcElement;
