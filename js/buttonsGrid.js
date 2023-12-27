@@ -16,10 +16,9 @@ for(let i=0; i<=11; i++){
 
 document.querySelector("#mix").onclick = () => {
     let round = 50;
-    while(round){
+    while(round--){
         let btn = Math.floor(Math.random() * 12)
         document.querySelector("#btn" + btn).dispatchEvent(new Event("click"));
-        round--;
     }
 }
 
